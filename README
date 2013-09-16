@@ -1,0 +1,6 @@
+fast-fourier-transform
+=============================================
+Git repository for implementing Fast Fourier Transform
+as described in Dasgupta, Papadimitriou, Vazirani, Algorithms
+(2008), pp. 58ff.
+Project started 9/16/2013

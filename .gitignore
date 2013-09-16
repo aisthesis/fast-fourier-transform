@@ -1,0 +1,6 @@
+#files to ignore
+.classpath
+.project
+.settings/
+.DS_Store
+bin/
