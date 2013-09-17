@@ -17,7 +17,7 @@ public class ComplexPolynomial {
 	 * Coefficients are considered equal if their difference is within DELTA
 	 */
 	public static final double DELTA = 0.0000000000001;
-	//private static final int FOURIER_MULTIPLY_DEGREE_THRESHOLD = 8;
+	private static final int FOURIER_MULTIPLY_DEGREE_THRESHOLD = 8;
 
 	private ArrayList<Complex> coefficients;
 	
@@ -69,6 +69,37 @@ public class ComplexPolynomial {
 	
 	public ComplexPolynomial minus(ComplexPolynomial p) {
 		return subtract(this.coefficients, p.coefficients);
+	}
+	
+	public ComplexPolynomial times(ComplexPolynomial p) {
+		if (this.degree() < 0 || p.degree() < 0) {
+			return fromDegree(-1);
+		}
+		if (this.degree() < FOURIER_MULTIPLY_DEGREE_THRESHOLD || 
+				p.degree() < FOURIER_MULTIPLY_DEGREE_THRESHOLD || 
+				this.degree() < Math.log(p.degree()) || 
+				p.degree() < Math.log(this.degree())) {
+			return schoolMultiply(this, p);
+		}
+		return null;
+	}
+	
+	/**
+	 * Horner's rule
+	 * Cf. CLRS, p. 900
+	 * 
+	 * @param c
+	 * @return
+	 */
+	public Complex evaluate(Complex c) {
+		if (coefficients.size() == 1 || c.equals(Complex.ZERO)) {
+			return coefficients.get(0);
+		}
+		Complex result = coefficients.get(coefficients.size() - 1);
+		for (int i = this.coefficients.size() - 2; i >= 0; i--) {
+			result = this.coefficients.get(i).plus(c.times(result));
+		}
+		return result;
 	}
 	
 	/**
