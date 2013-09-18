@@ -216,4 +216,16 @@ public class ComplexTest {
 		assertTrue("Polar with negative angle created correctly", c2.equals(new Complex(Math.sqrt(2.0),
 				-Math.sqrt(2.0))));
 	}
+
+	@Test
+	public void testNegative() {
+		Complex c = Complex.fromPolar(Math.E, Math.PI / 6.0);
+		assertTrue("Complex and its negative sum to 0", c.plus(c.negative()).equals(Complex.ZERO));
+	}
+
+	@Test
+	public void testReciprocal() {
+		Complex c = Complex.fromPolar(Math.E, Math.PI / 6.0);
+		assertTrue("Complex times its reciprocal is 1", c.times(c.reciprocal()).equals(Complex.ONE));
+	}
 }

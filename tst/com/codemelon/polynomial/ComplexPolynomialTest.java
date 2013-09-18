@@ -142,7 +142,46 @@ public class ComplexPolynomialTest {
 	 * Test method for {@link com.codemelon.polynomial.ComplexPolynomial#times(com.codemelon.polynomial.ComplexPolynomial)}.
 	 */
 	@Test
-	public void testTimes() {
+	public void testTimesSchool() {
+		// real coefficients
+		Complex[] p1Coefficients = { new Complex(3.0, 0.0), new Complex(2.0, 0.0), 
+				Complex.ONE };
+		Complex[] p2Coefficients = { new Complex(2.0, 0.0), Complex.ONE };
+		ComplexPolynomial p1 = new ComplexPolynomial(Arrays.asList(p1Coefficients));
+		ComplexPolynomial p2 = new ComplexPolynomial(Arrays.asList(p2Coefficients));
+		ComplexPolynomial result = p1.times(p2);
+		assertTrue("p1 times p2 correct coefficient 0", result.coefficient(0).equals(new Complex(6.0, 0.0)));
+		assertTrue("p1 times p2 correct coefficient 1", result.coefficient(1).equals(new Complex(7.0, 0.0)));
+		assertTrue("p1 times p2 correct coefficient 2", result.coefficient(2).equals(new Complex(4.0, 0.0)));
+		assertTrue("p1 times p2 correct coefficient 3", result.coefficient(3).equals(new Complex(1.0, 0.0)));
+		assertTrue("p1 times p2 correct coefficient 4", result.coefficient(4).equals(new Complex(0.0, 0.0)));
+		result = p2.times(p1);
+		assertTrue("p2 times p1 correct coefficient 0", result.coefficient(0).equals(new Complex(6.0, 0.0)));
+		assertTrue("p2 times p1 correct coefficient 1", result.coefficient(1).equals(new Complex(7.0, 0.0)));
+		assertTrue("p2 times p1 correct coefficient 2", result.coefficient(2).equals(new Complex(4.0, 0.0)));
+		assertTrue("p2 times p1 correct coefficient 3", result.coefficient(3).equals(new Complex(1.0, 0.0)));
+		assertTrue("p2 times p1 correct coefficient 4", result.coefficient(4).equals(new Complex(0.0, 0.0)));
+		// complex coefficients
+		Complex[] p3Coefficients = { Complex.fromPolar(2.0, Math.PI / 8), 
+				Complex.fromPolar(1.0, 3.0 * Math.PI / 8) };
+		Complex[] p4Coefficients = { Complex.fromPolar(2.0, Math.PI / 8), 
+				Complex.fromPolar(1.0, 3.0 * Math.PI / 8).negative() };
+		ComplexPolynomial p3 = new ComplexPolynomial(Arrays.asList(p3Coefficients));
+		ComplexPolynomial p4 = new ComplexPolynomial(Arrays.asList(p4Coefficients));
+		result = p3.times(p4);
+		assertTrue("p3 times p4 correct coefficient 0", result.coefficient(0)
+				.equals(Complex.fromPolar(4.0, Math.PI / 4)));
+		assertTrue("p3 times p4 correct coefficient 1", result.coefficient(1).equals(Complex.ZERO));
+		assertTrue("p3 times p4 correct coefficient 2", result.coefficient(2)
+				.equals(Complex.fromPolar(1.0, 3.0 * Math.PI / 4).negative()));
+		assertTrue("p3 times p4 correct coefficient 3", result.coefficient(3).equals(Complex.ZERO));
+	}
+	
+	/**
+	 * Test method for {@link com.codemelon.polynomial.ComplexPolynomial#times(com.codemelon.polynomial.ComplexPolynomial)}.
+	 */
+	@Test
+	public void testTimesFourier() {
 		fail("Not yet implemented");
 	}
 

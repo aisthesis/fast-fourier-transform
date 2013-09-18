@@ -97,6 +97,14 @@ public class Complex {
 		return new Complex(this.real, -this.imaginary);
 	}
 	
+	public Complex negative() {
+		return ZERO.minus(this);
+	}
+	
+	public Complex reciprocal() {
+		return ONE.dividedBy(this);
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		return Math.abs(this.real - ((Complex) o).real) < DELTA 
