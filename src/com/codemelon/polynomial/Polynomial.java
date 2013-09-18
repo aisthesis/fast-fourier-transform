@@ -186,7 +186,7 @@ public class Polynomial {
 	private static Complex[] coefficientsToValues(double[] coefficients, Complex omega) {
 		int n = coefficients.length;
 		Complex[] result = new Complex[n];
-		if (omega.equals(Complex.ONE)) {
+		if (omega.equalWithinDelta(Complex.ONE)) {
 			// n is 1 in this case
 			result[0] = new Complex(coefficients[0], 0.0);
 			return result;

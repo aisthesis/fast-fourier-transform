@@ -111,9 +111,9 @@ public class ComplexTest {
 		Complex c2 = new Complex(0.0, medium);
 		Complex c3 = new Complex(medium, big);
 		Complex result = c1.times(c2);
-		assertTrue("c1 * c2 correct", result.equals(new Complex(-medium * medium, small * medium)));
+		assertTrue("c1 * c2 correct", result.equalWithinDelta(new Complex(-medium * medium, small * medium)));
 		result = c2.times(c3);
-		assertTrue("c2 * c3 correct", result.equals(new Complex(-medium * big, medium * medium)));
+		assertTrue("c2 * c3 correct", result.equalWithinDelta(new Complex(-medium * big, medium * medium)));
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class ComplexTest {
 		double big = Double.MAX_VALUE / 10.0;
 		Complex c1 = new Complex(small, medium);
 		Complex result = c1.times(big);
-		assertTrue("c1 * big correct", result.equals(new Complex(big * small, big * medium)));
+		assertTrue("c1 * big correct", result.equalWithinDelta(new Complex(big * small, big * medium)));
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class ComplexTest {
 		double imag1 = 1000.0;
 		double r = 5.0;
 		assertTrue("Correct division by real number", new Complex(r1, imag1)
-			.dividedBy(r).equals(new Complex(r1 / r, imag1 / r)));
+			.dividedBy(r).equalWithinDelta(new Complex(r1 / r, imag1 / r)));
 	}
 
 	/**
@@ -155,12 +155,12 @@ public class ComplexTest {
 		Complex result = c1.dividedBy(c2);
 		Complex expectedResult = new Complex(r1 / r2, imag1 / r2);
 		assertTrue("Correct division by complex with no imaginary component", 
-				result.equals(expectedResult));
+				result.equalWithinDelta(expectedResult));
 		c2 = new Complex(0.0, imag2);
 		result = c1.dividedBy(c2);
 		expectedResult = new Complex(imag1 / imag2, -r1 / imag2);
 		assertTrue("Correct division by complex with no real component", 
-				result.equals(expectedResult));
+				result.equalWithinDelta(expectedResult));
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class ComplexTest {
 		double r = 3.0;
 		double imag = 4.0;
 		Complex c = new Complex(r, imag);
-		assertTrue("Correct conjugate", c.conjugate().equals(new Complex(r, -imag)));
+		assertTrue("Correct conjugate", c.conjugate().equalWithinDelta(new Complex(r, -imag)));
 	}
 
 	/**
@@ -211,21 +211,21 @@ public class ComplexTest {
 				Math.abs(c2.abs() - distance) < DELTA);
 		assertTrue("Polar with different angles have same magnitude", 
 				Math.abs(c3.abs() - distance) < DELTA);
-		assertTrue("Polar with positive angle created correctly", c1.equals(new Complex(Math.sqrt(2.0),
+		assertTrue("Polar with positive angle created correctly", c1.equalWithinDelta(new Complex(Math.sqrt(2.0),
 				Math.sqrt(2.0))));
-		assertTrue("Polar with negative angle created correctly", c2.equals(new Complex(Math.sqrt(2.0),
+		assertTrue("Polar with negative angle created correctly", c2.equalWithinDelta(new Complex(Math.sqrt(2.0),
 				-Math.sqrt(2.0))));
 	}
 
 	@Test
 	public void testNegative() {
 		Complex c = Complex.fromPolar(Math.E, Math.PI / 6.0);
-		assertTrue("Complex and its negative sum to 0", c.plus(c.negative()).equals(Complex.ZERO));
+		assertTrue("Complex and its negative sum to 0", c.plus(c.negative()).equalWithinDelta(Complex.ZERO));
 	}
 
 	@Test
 	public void testReciprocal() {
 		Complex c = Complex.fromPolar(Math.E, Math.PI / 6.0);
-		assertTrue("Complex times its reciprocal is 1", c.times(c.reciprocal()).equals(Complex.ONE));
+		assertTrue("Complex times its reciprocal is 1", c.times(c.reciprocal()).equalWithinDelta(Complex.ONE));
 	}
 }

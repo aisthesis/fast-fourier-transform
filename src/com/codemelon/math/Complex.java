@@ -10,9 +10,9 @@ package com.codemelon.math;
 public class Complex {
 	/**
 	 * 2 complex numbers are considered equals if both real and imaginary parts
-	 * are within this delta.
+	 * are within this delta: 10 ^ (-12)
 	 */
-	public static final double DELTA = 0.0000000000001;
+	public static final double DELTA = 0.000000000001;
 	public static final Complex ZERO = new Complex(0.0, 0.0);
 	public static final Complex ONE = new Complex(1.0, 0.0);
 	
@@ -81,7 +81,7 @@ public class Complex {
 	}
 	
 	public Complex dividedBy(Complex c) {
-		if (c.equals(ZERO)) {
+		if (c.equalWithinDelta(ZERO)) {
 			throw new ArithmeticException("/ by zero");
 		}
 		Complex resultTimesCMagSq = this.times(c.conjugate());
@@ -105,10 +105,9 @@ public class Complex {
 		return ONE.dividedBy(this);
 	}
 	
-	@Override
-	public boolean equals(Object o) {
-		return Math.abs(this.real - ((Complex) o).real) < DELTA 
-				&& Math.abs(this.imaginary - ((Complex) o).imaginary) < DELTA;
+	public boolean equalWithinDelta(Complex c) {
+		return Math.abs(this.real - c.real) < DELTA 
+				&& Math.abs(this.imaginary - c.imaginary) < DELTA;
 	}
 	
 	@Override
