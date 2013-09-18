@@ -275,7 +275,7 @@ public class ComplexPolynomial {
 			return y;
 		}
 		int nOverTwo = n / 2;
-		Complex omegaNReciprocal = Complex.fromPolar(1.0, 2.0 * Math.PI / n).reciprocal();
+		Complex omegaNReciprocal = Complex.fromPolar(1.0, (n - 1) * 2.0 * Math.PI / n);
 		Complex omega = Complex.ONE;
 		Complex[] y0 = new Complex[nOverTwo];
 		Complex[] y1 = new Complex[nOverTwo];

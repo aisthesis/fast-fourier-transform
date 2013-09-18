@@ -179,10 +179,12 @@ public class ComplexPolynomialTest {
 	
 	/**
 	 * Test method for {@link com.codemelon.polynomial.ComplexPolynomial#times(com.codemelon.polynomial.ComplexPolynomial)}.
+	 * This fails when the result degree is > 8. Some coefficients differ significantly
+	 * from the correct value, so it doesn't seem to be just rounding problems.
 	 */
 	@Test
 	public void testTimesFourier() {
-		Complex[] p1Coefficients = { Complex.ONE, Complex.ZERO, Complex.ZERO, 
+		Complex[] p1Coefficients = { Complex.ONE, Complex.ZERO, Complex.ZERO,
 				Complex.ONE };
 		Complex[] p2Coefficients = { Complex.ONE, Complex.ZERO, Complex.ZERO, 
 				Complex.ONE.negative() };
