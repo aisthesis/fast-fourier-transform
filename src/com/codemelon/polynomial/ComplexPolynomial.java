@@ -84,7 +84,7 @@ public class ComplexPolynomial {
 				p.degree() < Math.log(this.degree())) {
 			return schoolMultiply(this, p);
 		}
-		return fourierMultiply(p, this);
+		return fourierMultiply(this, p);
 	}
 	
 	/**
