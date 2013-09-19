@@ -270,12 +270,21 @@ public class ComplexPolynomial {
 	 * @return
 	 */
 	static Complex[] recursiveFFTInverse(Complex[] y) {
+		Complex[] result = recursiveFFTInverseInternal(y);
+		Complex oneOverN = new Complex(1.0 / y.length, 0.0);
+		for (int i = 0; i < y.length; i++) {
+			result[i] = result[i].times(oneOverN);
+		}
+		return result;
+	}
+	
+	private static Complex[] recursiveFFTInverseInternal(Complex[] y) {
 		int n = y.length;
 		if (n == 1) {
 			return y;
 		}
 		int nOverTwo = n / 2;
-		Complex omegaNReciprocal = Complex.fromPolar(1.0, (n - 1) * 2.0 * Math.PI / n);
+		Complex omegaNReciprocal = Complex.fromPolar(1.0, -2.0 * Math.PI / n);
 		Complex omega = Complex.ONE;
 		Complex[] y0 = new Complex[nOverTwo];
 		Complex[] y1 = new Complex[nOverTwo];
@@ -283,13 +292,12 @@ public class ComplexPolynomial {
 			y0[i] = y[2 * i];
 			y1[i] = y[2 * i + 1];
 		}
-		Complex[] a0 = recursiveFFT(y0);
-		Complex[] a1 = recursiveFFT(y1);
+		Complex[] a0 = recursiveFFTInverseInternal(y0);
+		Complex[] a1 = recursiveFFTInverseInternal(y1);
 		Complex[] a = new Complex[n];
-		Complex oneOverN = new Complex(1.0 / n, 0.0);
 		for (int i = 0; i < nOverTwo; i++) {
-			a[i] = a0[i].plus(omega.times(a1[i])).times(oneOverN);
-			a[i + nOverTwo] = a0[i].minus(omega.times(a1[i])).times(oneOverN);
+			a[i] = a0[i].plus(omega.times(a1[i]));
+			a[i + nOverTwo] = a0[i].minus(omega.times(a1[i]));
 			omega = omega.times(omegaNReciprocal);
 		}
 		return a;

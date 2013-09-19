@@ -192,7 +192,7 @@ public class ComplexPolynomialTest {
 		ComplexPolynomial p1 = new ComplexPolynomial(p1Coefficients);
 		ComplexPolynomial p2 = new ComplexPolynomial(p2Coefficients);
 		ComplexPolynomial product = p1.times(p2);
-		/*
+		
 		assertEquals("correct degree", resultDegree, product.degree());
 		assertTrue("constant coefficient is 1", product.coefficient(0).equalWithinDelta(Complex.ONE));
 		for (int i = 1; i < resultDegree; i++) {
@@ -200,7 +200,6 @@ public class ComplexPolynomialTest {
 		}
 		assertTrue("coefficient " + resultDegree + " is -1", product.coefficient(resultDegree)
 				.equalWithinDelta(Complex.ONE.negative()));
-				*/
 	}
 
 	/**
